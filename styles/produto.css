@@ -1,0 +1,63 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  /* Centraliza verticalmente */
+  justify-content: center;
+  /* Centraliza horizontalmente */
+}
+
+.container {
+  max-width: 500px;
+  /* Ajuste conforme necessário */
+}
+
+.tipo-btn-container,
+.genero-btn-container {
+  display: flex;
+}
+
+.btn-custom {
+  flex: 1;
+  /* Faz com que cada botão ocupe uma fração igual do espaço disponível */
+  text-align: center;
+  /* Centraliza o texto dentro do botão */
+  border: 1px solid #dee2e6;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.375rem;
+  /* Espaçamento interno */
+  font-size: 16px;
+  /* Tamanho do texto */
+  color: black;
+  /* Cor do texto */
+  background-color: transparent;
+  /* Fundo transparente */
+  cursor: pointer;
+  transition: all 0.6s;
+  /* Espaçamento entre botões */
+}
+
+.btn-custom:not(:last-child) {
+  margin-right: 5px;
+}
+
+.btn-custom.active,
+.btn-custom:hover {
+  color: grey;
+  /* Cor do texto ativo */
+  background-color: #f2f2f2;
+  /* Fundo do botão ativo */
+}
+
+.btn-submit {
+  background-color: black !important;
+  border-color: black !important;
+}
+
+.btn-submit:hover {
+  opacity: 0.9 !important;
+}
