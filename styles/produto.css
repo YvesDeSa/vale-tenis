@@ -45,12 +45,9 @@ body {
   margin-right: 5px;
 }
 
-.btn-custom.active,
-.btn-custom:hover {
-  color: grey;
-  /* Cor do texto ativo */
-  background-color: #f2f2f2;
-  /* Fundo do botão ativo */
+.btn-custom.active {
+  color: white !important;
+  background-color: #6c757d !important;
 }
 
 .btn-submit {
@@ -60,4 +57,14 @@ body {
 
 .btn-submit:hover {
   opacity: 0.9 !important;
+}
+
+.btn-outline-secondary {
+  border: 1px solid #dee2e6 !important;
+}
+
+.btn-custom:hover,
+.btn-outline-secondary:hover {
+  color: grey;
+  background-color: #f2f2f2;
 }

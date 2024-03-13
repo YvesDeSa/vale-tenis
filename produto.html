@@ -28,10 +28,6 @@
         <input type="text" class="form-control" id="detalhe" required>
       </div>
       <div class="mb-3">
-        <label for="tamanho" class="form-label">Tamanhos (separe por vírgulas)</label>
-        <input type="text" class="form-control" id="tamanho" required>
-      </div>
-      <div class="mb-3">
         <label class="form-label">Tipo</label>
         <div class="tipo-btn-container">
           <button type="button" class="btn-custom tipo-btn" data-tipo="adulto">Adulto</button>
@@ -50,6 +46,60 @@
       <!-- Campos ocultos para armazenar os valores selecionados -->
       <input type="hidden" id="tipoGenero" name="tipoGenero" value="">
       <input type="hidden" id="genero" name="genero" value="">
+
+      <div class="mb-3" id="divTamanho">
+        <label class="form-label">Tamanho</label>
+        <div>
+          <!-- Tamanhos infantis, escondidos inicialmente -->
+          <button type="button" class="btn btn-outline-secondary tamanho-btn tamanho-infantil d-none"
+            data-tamanho="25">25</button>
+          <button type="button" class="btn btn-outline-secondary tamanho-btn tamanho-infantil d-none"
+            data-tamanho="26">26</button>
+          <button type="button" class="btn btn-outline-secondary tamanho-btn tamanho-infantil d-none"
+            data-tamanho="27">27</button>
+          <button type="button" class="btn btn-outline-secondary tamanho-btn tamanho-infantil d-none"
+            data-tamanho="28">28</button>
+          <button type="button" class="btn btn-outline-secondary tamanho-btn tamanho-infantil d-none"
+            data-tamanho="29">29</button>
+          <button type="button" class="btn btn-outline-secondary tamanho-btn tamanho-infantil d-none"
+            data-tamanho="30">30</button>
+          <button type="button" class="btn btn-outline-secondary tamanho-btn tamanho-infantil d-none"
+            data-tamanho="31">31</button>
+          <button type="button" class="btn btn-outline-secondary tamanho-btn tamanho-infantil d-none"
+            data-tamanho="32">32</button>
+          <button type="button" class="btn btn-outline-secondary tamanho-btn tamanho-infantil d-none"
+            data-tamanho="33">33</button>
+          <button type="button" class="btn btn-outline-secondary tamanho-btn tamanho-infantil d-none"
+            data-tamanho="34">34</button>
+          <!-- Adicione botões até 34 para tamanhos infantis -->
+
+          <!-- Tamanhos adultos, escondidos inicialmente -->
+          <button type="button" class="btn btn-outline-secondary tamanho-btn tamanho-adulto d-none"
+            data-tamanho="35">35</button>
+          <button type="button" class="btn btn-outline-secondary tamanho-btn tamanho-adulto d-none"
+            data-tamanho="36">36</button>
+          <button type="button" class="btn btn-outline-secondary tamanho-btn tamanho-adulto d-none"
+            data-tamanho="37">37</button>
+          <button type="button" class="btn btn-outline-secondary tamanho-btn tamanho-adulto d-none"
+            data-tamanho="38">38</button>
+          <button type="button" class="btn btn-outline-secondary tamanho-btn tamanho-adulto d-none"
+            data-tamanho="39">39</button>
+          <button type="button" class="btn btn-outline-secondary tamanho-btn tamanho-adulto d-none"
+            data-tamanho="40">40</button>
+          <button type="button" class="btn btn-outline-secondary tamanho-btn tamanho-adulto d-none"
+            data-tamanho="41">41</button>
+          <button type="button" class="btn btn-outline-secondary tamanho-btn tamanho-adulto d-none"
+            data-tamanho="42">42</button>
+          <button type="button" class="btn btn-outline-secondary tamanho-btn tamanho-adulto d-none"
+            data-tamanho="43">43</button>
+          <button type="button" class="btn btn-outline-secondary tamanho-btn tamanho-adulto d-none"
+            data-tamanho="44">44</button>
+          <!-- Adicione botões até 44 para tamanhos adultos -->
+        </div>
+      </div>
+
+      <!-- Campo oculto para armazenar os tamanhos selecionados -->
+      <input type="hidden" id="tamanhosSelecionados" name="tamanhos">
 
       <button type="submit" class="btn btn-primary btn-submit w-100">Salvar Produto</button>
     </form>

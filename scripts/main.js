@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // Inicializa produtos a partir do localStorage ou usa array padrão se não houver dados salvos
   let produtos = JSON.parse(localStorage.getItem('produtos')) || [];
 
   function salvarProdutos() {
