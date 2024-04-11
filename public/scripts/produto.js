@@ -1,9 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
-  let produtos = JSON.parse(localStorage.getItem('produtos')) || [];
-
-  function salvarProdutos() {
-    localStorage.setItem('produtos', JSON.stringify(produtos));
-  }
+document.addEventListener('DOMContentLoaded', async function() {
 
   function formatarGenero(genero) {
     let partes = [];
@@ -12,7 +7,11 @@ document.addEventListener('DOMContentLoaded', function() {
     return partes.join(", ");
   }
 
-  function renderizarProdutos() {
+  async function renderizarProdutos() {
+
+    const response = await axios.get('http://localhost:8000/produtos');
+    const produtos = response.data; //Armazenando na variável animais
+    
     const listaProdutosEl = document.getElementById('listaProdutos');
     listaProdutosEl.innerHTML = '';
 
@@ -26,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
               <td>${produto.detalhe}</td>
               <td>${formatarGenero(produto.genero)}</td>
               <td>
-                    <a href="produto.html?id=${produto.id}" class="btn btn-outline-primary btn-sm me-2">
+                    <a href="cadastro-produto.html?id=${produto.id}" class="btn btn-outline-primary btn-sm me-2">
                         <i class="bi bi-pencil"></i>
                     </a>
                     <button onclick="excluirProduto(${produto.id})" class="btn btn-outline-danger btn-sm">
@@ -38,13 +37,17 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  function excluirProduto(idDoProduto) {
-    const produtoIndex = produtos.findIndex(produto => produto.id === idDoProduto);
-    if (produtoIndex !== -1) {
-      produtos.splice(produtoIndex, 1);
-      salvarProdutos();
-      renderizarProdutos();
+  async function excluirProduto(idDoProduto) {
+    try {
+      await axios.delete(`http://localhost:8000/produtos/${idDoProduto}`);
+      alert('Produto apagado com sucesso.');
+
+    } catch (error) {
+      console.error('Erro ao apagar produto:', error);
+      alert('Erro ao apagar produto');
     }
+    renderizarProdutos();
+
   }
 
   window.excluirProduto = excluirProduto;

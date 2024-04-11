@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('genero').value = this.getAttribute('data-genero');
     });
   });
-  let produtos = JSON.parse(localStorage.getItem('produtos')) || [];
+  // let produtos = JSON.parse(localStorage.getItem('produtos')) || [];
 
   const urlParams = new URLSearchParams(window.location.search);
   const productId = urlParams.get('id');
@@ -98,8 +98,8 @@ document.addEventListener('DOMContentLoaded', function() {
       form.setAttribute('data-id', produto.id);
     }
   }
-
-  form.addEventListener('submit', function(e) {
+ 
+  form.addEventListener('submit', async function(e) {
     e.preventDefault();
 
     const id = document.getElementById('productId').value;
@@ -107,31 +107,23 @@ document.addEventListener('DOMContentLoaded', function() {
     const marca = document.getElementById('marca').value;
     const detalhe = document.getElementById('detalhe').value;
     const tamanhosSelecionados = document.getElementById('tamanhosSelecionados').value.split(',');
-
     const tipoGenero = document.getElementById('tipoGenero').value;
     const genero = document.getElementById('genero').value;
 
     const produtoData = {
-      id: id,
-      modelo: modelo,
-      marca: marca,
+      id: 0,
       detalhe: detalhe,
-      tamanhos: tamanhosSelecionados,
       genero: {
         adulto: tipoGenero === 'adulto' ? genero : null,
         infantil: tipoGenero === 'infantil' ? genero : null
-      }
+      },
+      marca: marca,
+      modelo: modelo,
+      tamanhos: tamanhosSelecionados
     };
 
-    if (id) {
-      const index = produtos.findIndex(p => p.id == id);
-      produtos[index] = { ...produtoData, id: Number(id) };
-    } else {
-      const novoId = produtos.length > 0 ? Math.max(...produtos.map(p => p.id)) + 1 : 1;
-      produtos.push({ ...produtoData, id: novoId });
-    }
-
-    localStorage.setItem('produtos', JSON.stringify(produtos));
-    window.location.href = 'index.html';
+    await axios.post('http://127.0.0.1:8000/produtos', produtoData);
+    alert('Produto cadastrado com sucesso.');
+    window.location.href = 'produto.html';
   });
 });
