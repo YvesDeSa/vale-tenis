@@ -109,21 +109,27 @@ document.addEventListener('DOMContentLoaded', function() {
     const tamanhosSelecionados = document.getElementById('tamanhosSelecionados').value.split(',');
     const tipoGenero = document.getElementById('tipoGenero').value;
     const genero = document.getElementById('genero').value;
+    
 
-    const produtoData = {
-      id: 0,
-      detalhe: detalhe,
-      genero: {
-        adulto: tipoGenero === 'adulto' ? genero : null,
-        infantil: tipoGenero === 'infantil' ? genero : null
-      },
-      marca: marca,
-      modelo: modelo,
-      tamanhos: tamanhosSelecionados
-    };
-
-    await axios.post('http://127.0.0.1:8000/produtos', produtoData);
-    alert('Produto cadastrado com sucesso.');
-    window.location.href = 'produto.html';
+    console.log(tamanhosSelecionados);
+    if(tipoGenero === '' || genero === '' || tamanhosSelecionados[0] === ''){
+      alert('Todos os campos devem ser preenchidos!');
+    }else{
+      const produtoData = {
+        id: 0,
+        detalhe: detalhe,
+        genero: {
+          adulto: tipoGenero === 'adulto' ? genero : null,
+          infantil: tipoGenero === 'infantil' ? genero : null
+        },
+        marca: marca,
+        modelo: modelo,
+        tamanhos: tamanhosSelecionados
+      };
+    
+      await axios.post('http://127.0.0.1:8000/produtos', produtoData);
+      alert('Produto cadastrado com sucesso.');
+      window.location.href = 'produto.html';
+    }
   });
 });

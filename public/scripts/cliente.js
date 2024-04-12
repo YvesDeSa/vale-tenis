@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                 <td>${cliente.email}</td>
                 
                 <td>
-                      <a href="cliente.html?id=${cliente.id}" class="btn btn-outline-primary btn-sm me-2">
+                      <a href="cliente.html?id=${cliente.id}" class="btn btn-outline-primary btn-sm me-2 disabled">
                           <i class="bi bi-pencil"></i>
                       </a>
                       <button onclick="excluirCliente(${cliente.id})" class="btn btn-outline-danger btn-sm">

@@ -9,16 +9,18 @@
 rel="stylesheet"
     crossorigin="anonymous">
   <link href="styles/produto.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
-  <div class="container mt-5">
+  <div clasas="container mt-5">
     <a href="index.html"><img src="assets/logo-path2.png" class="card-img-top mx-auto
       d-block" alt="Vale Tênis Logo" style="width: 160px; padding-top:
       20px; margin-bottom: 30px;"></a>
     <h2 id="pageTitle" class="text-center mb-3"><b>Crie sua
 conta<br>Vale Tênis</b></h2>
-    <p style="font-size:18px; text-align: center; margin: 10px;">Registre-se na Vale Tênis e desfrute dos melhores produtos e ofertas exclusivas!</p>
+    <p style="font-size:18px; text-align: center; margin: 10px; color: #8D8D8D;">Registre-se na Vale Tênis e desfrute dos melhores produtos e ofertas exclusivas!</p>
+    
     <form id="clienteForm" class="mb-5">
       <input type="hidden" id="clienteId" value="">
 
@@ -35,7 +37,7 @@ required placeholder="Sobrenome">
 
       <div class="row">
         <div class="mb-3">
-          <select id="inputSexo" class="form-select">
+          <select id="sexo" class="form-select" required>
             <option selected value="">Sexo</option>
             <option value="M">Masculino</option>
             <option value="F">Feminino</option>
@@ -49,12 +51,12 @@ required placeholder="Sobrenome">
             <input type="date" class="form-control" id="dataNascimento" required>
             <label for="dataNascimento" class="form-float" >Data de Nascimento</label>
         </div>
-        <p style="font-size:14px; text-align: center;">Ganhe uma recompensa da Vale Tênis todos os anos no seu aniversário</p>
+        <p style="font-size:14px; text-align: center; color: #8D8D8D">Ganhe uma recompensa da Vale Tênis todos os anos no seu aniversário</p>
       </div>
 
       <div class="row mb-3">
         <div class="">
-          <input type="text" class="form-control" id="Cpf" required
+          <input type="text" class="form-control" id="cpf" required
 placeholder="CPF">
         </div>
       </div>
@@ -66,18 +68,18 @@ placeholder="Celular">
       </div>
       
       <div class="mb-3">
-        <input type="text" class="form-control" id="email" required
+        <input type="email" class="form-control" id="email" required
 placeholder="Email">
     </div>
     
     <div class="mb-3">
-        <input type="text" class="form-control" id="senha" required
+        <input type="password" class="form-control" id="senha" required
 placeholder="Senha">
     </div>
 
     
     <div class="mb-3">
-        <input type="text" class="form-control" id="" required
+        <input type="password" class="form-control" id="confirmarSenha" required
 placeholder="Confirmar Senha">
     </div>
 
@@ -86,7 +88,7 @@ w-100">Cadastrar</button>
     </form>
   </div>
 
-  <script src="scripts/cliente.js"></script>
+  <script src="scripts/cadastro-cliente.js"></script>
 </body>
 
 </html>

@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', async function() {
               <td>${produto.detalhe}</td>
               <td>${formatarGenero(produto.genero)}</td>
               <td>
-                    <a href="cadastro-produto.html?id=${produto.id}" class="btn btn-outline-primary btn-sm me-2 disabled">
+                    <a href="produto.html?id=${produto.id}" class="btn btn-outline-primary btn-sm me-2">
                         <i class="bi bi-pencil"></i>
                     </a>
                     <button onclick="excluirProduto(${produto.id})" class="btn btn-outline-danger btn-sm">
