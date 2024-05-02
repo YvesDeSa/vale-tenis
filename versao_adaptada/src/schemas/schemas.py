@@ -8,23 +8,15 @@ class Usuario(BaseModel):
     nome: str
     telefone: str
 
-class Produto(BaseModel):
-    id: Optional[str] = None
-    nome: str
-    detalhes: str
-    preco: float
-    disponivel: bool = False
 
-    class Config:
-        orm_mode = True
-
-class Pedido(BaseModel):
-    id: Optional[str] = None
+class ProdutoTamanho(BaseModel):
+    id: Optional[int] = None
+    produto_id: int
     quantidade: int
-    entrega: bool = False
-    endereco: str
-    observacoes: Optional[str] = "Sem Observações"
+    tamanho: int
 
+
+    
 class Cliente(BaseModel):
   id: Optional[int] = 0
   nome: str
@@ -35,3 +27,21 @@ class Cliente(BaseModel):
   celular: str
   email: str
   senha: str
+
+class Produto(BaseModel):
+    id: Optional[int] = None
+    marca: str
+    detalhe: str
+    modelo: str
+    tipo_genero: str
+    genero: str
+
+    class Config:
+        orm_mode = True
+
+class Pedido(BaseModel):
+    id: Optional[str] = None
+    quantidade: int
+    entrega: bool = False
+    endereco: str
+    observacoes: Optional[str] = "Sem Observações"
