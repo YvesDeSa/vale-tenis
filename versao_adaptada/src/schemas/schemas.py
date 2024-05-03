@@ -15,7 +15,6 @@ class ProdutoTamanho(BaseModel):
     quantidade: int
     tamanho: int
 
-
     
 class Cliente(BaseModel):
   id: Optional[int] = 0
@@ -28,6 +27,7 @@ class Cliente(BaseModel):
   email: str
   senha: str
 
+
 class Produto(BaseModel):
     id: Optional[int] = None
     marca: str
@@ -35,9 +35,11 @@ class Produto(BaseModel):
     modelo: str
     tipo_genero: str
     genero: str
+    tamanhos: List[ProdutoTamanho]
 
-    class Config:
-        orm_mode = True
+    # class Config:
+    #     orm_mode = True
+
 
 class Pedido(BaseModel):
     id: Optional[str] = None

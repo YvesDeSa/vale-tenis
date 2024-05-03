@@ -1,4 +1,5 @@
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
+from src.infra.sqlalchemy.repositorios.produto_tamanho import RepositorioProdutoTamanho
 from src.schemas import schemas
 from src.infra.sqlalchemy.models import models
 
@@ -19,15 +20,40 @@ class RepositorioProduto():
         self.db.add(db_produto)
         self.db.commit()
         self.db.refresh(db_produto)
+
+        # Criar os registros de tamanhos associados ao produto
+        for tamanho in produto.tamanhos:
+            db_produto_tamanho = models.ProdutoTamanho(
+                produto_id=db_produto.id,
+                quantidade=tamanho.quantidade,
+                tamanho=tamanho.tamanho
+            )
+            self.db.add(db_produto_tamanho)
+
+        # Commit para salvar todas as alterações no banco de dados
+        self.db.commit()
+
         return db_produto
 
 
     def listar(self):
-        produtos = self.db.query(models.Produto).all()
-        return  produtos
+        produtos = self.db.query(models.Produto).options(joinedload(models.Produto.tamanhos)).all()
+        return produtos
+    
 
-    def obter(self):
-        pass
+    def obter(self, produto_id: int):
+        produto = self.db.query(models.Produto).filter(models.Produto.id == produto_id).\
+            options(joinedload(models.Produto.tamanhos)).first()
+        return produto
 
-    def remover(self):
-        pass
+    def remover(self, produto_id: int):
+        produto = self.db.query(models.Produto).filter(models.Produto.id == produto_id).\
+            options(joinedload(models.Produto.tamanhos)).first()
+        if produto:
+            for tamanho in produto.tamanhos:
+                self.db.delete(tamanho)
+
+            self.db.delete(produto)
+            self.db.commit()
+            return True
+        return False

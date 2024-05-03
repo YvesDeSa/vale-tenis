@@ -10,10 +10,11 @@ class RepositorioProdutoTamanho():
 
 
     def criar(self, produto_tamanho: schemas.ProdutoTamanho):# Covertendo o Schema em um modelo
-        db_produto = models.ProdutoTamanho(produto_id=produto_tamanho.produto_id, 
+        db_produto = models.ProdutoTamanho(produto_id=produto_tamanho.id, 
                                     quantidade=produto_tamanho.quantidade,
                                     tamanho=produto_tamanho.tamanho
                                     )
+        db_produto.id = 0
         self.db.add(db_produto)
         self.db.commit()
         self.db.refresh(db_produto)

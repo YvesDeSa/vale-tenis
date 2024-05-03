@@ -15,7 +15,7 @@ class Produto(Base):#Define uma classe chamada Produto que herda da classe Base,
     tipo_genero = Column(String) #adulto / infantil
     genero = Column(String) # Masculino / feminino / unisex 
     detalhe = Column (String)
-    
+     
     # Define o relacionamento com a tabela produto_tamanho
     tamanhos = relationship("ProdutoTamanho", back_populates="produto")
 

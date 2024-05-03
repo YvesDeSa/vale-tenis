@@ -20,15 +20,33 @@ def criar_produto(produto: Produto, db:Session = Depends(get_db)):# Depends vem 
     return{"MSG":"Produto Criado"}
 
 
-@app.post("/produto-tamanho")
-def criar_produto_tamanho(produto: ProdutoTamanho, db:Session = Depends(get_db)):# Depends vem do FastAPI para injetar oque passamos
-    produto_criado = RepositorioProdutoTamanho(db).criar(produto)
-    return{"MSG":"Produto Criado"}
+# @app.post("/produto-tamanho")
+# def criar_produto_tamanho(produto: ProdutoTamanho, db:Session = Depends(get_db)):# Depends vem do FastAPI para injetar oque passamos
+#     produto_criado = RepositorioProdutoTamanho(db).criar(produto)
+#     return{"MSG":"Produto Criado"}
 
 
 @app.get("/produtos")
-def listar_produtos():
-    return {"MSG": "Lisatagem de Produtos"}
+def listar_produtos(db:Session = Depends(get_db)):
+    produtos = RepositorioProduto(db).listar()
+    return produtos
+
+
+
+@app.get("/produto/{produto_id}")
+def obter_produto(produto_id:int, db:Session = Depends(get_db), ):
+    produto = RepositorioProduto(db).obter(produto_id)
+    return produto
+
+
+@app.delete("/produto/{produto_id}")
+def remover_produto(produto_id:int, db:Session = Depends(get_db), ):
+    if RepositorioProduto(db).remover(produto_id):
+        return{f"Produto {produto_id} removido com sucesso!"}
+    else:
+        return{f"Não foi possível remover o produto {produto_id}"}
+
+
 
 @app.post("/cliente")
 def criar_cliente(cliente: Cliente, db:Session = Depends(get_db)):# Depends vem do FastAPI para injetar oque passamos
