@@ -28,8 +28,15 @@ class RepositorioCliente():
         clientes = self.db.query(models.Cliente).all()
         return  clientes
 
-    def obter(self):
-        pass
+    def obter(self, cliente_id: int):
+        cliente = self.db.query(models.Cliente).filter(models.Cliente.id == cliente_id).first()
+        return cliente
+    
 
-    def remover(self):
-        pass
+    def remover(self, cliente_id: int):
+        cliente = self.db.query(models.Cliente).filter(models.Cliente.id == cliente_id).first()
+        if cliente:
+            self.db.delete(cliente)
+            self.db.commit()
+            return True
+        return False

@@ -58,3 +58,17 @@ def criar_cliente(cliente: Cliente, db:Session = Depends(get_db)):# Depends vem 
 def listar_clientes(db:Session = Depends(get_db)):
     clientes = RepositorioCliente(db).listar()
     return clientes
+
+
+@app.get("/cliente/{cliente_id}")
+def obter_cliente(cliente_id:int, db:Session = Depends(get_db), ):
+    cliente = RepositorioCliente(db).obter(cliente_id)
+    return cliente
+
+
+@app.delete("/cliente/{cliente_id}")
+def remover_cliente(cliente_id:int, db:Session = Depends(get_db), ):
+    if RepositorioCliente(db).remover(cliente_id):
+        return{f"Cliente {cliente_id} removido com sucesso!"}
+    else:
+        return{f"Não foi possível remover o cliente {cliente_id}"}
