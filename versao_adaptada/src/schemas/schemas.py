@@ -47,3 +47,13 @@ class Pedido(BaseModel):
     entrega: bool = False
     endereco: str
     observacoes: Optional[str] = "Sem Observações"
+
+
+class Fornecedor(BaseModel):
+    id : Optional[int] = None
+    nome : str
+    cnpj : str
+    endereco : str
+    celular : str
+    email : str
+    

@@ -18,6 +18,10 @@ class RepositorioProduto():
                                     genero=produto.genero,
                                     )
 
+        self.db.add(db_produto)
+        self.db.commit()
+        self.db.refresh(db_produto)
+
         # Criar os registros de tamanhos associados ao produto
         for tamanho in produto.tamanhos:
             db_produto_tamanho = models.ProdutoTamanho(
@@ -27,9 +31,10 @@ class RepositorioProduto():
             )
             self.db.add(db_produto_tamanho)
 
-        self.db.add(db_produto)
+            # self.db.refresh(db_produto_tamanho)
+
         self.db.commit()
-        self.db.refresh(db_produto)
+
         return db_produto
 
 

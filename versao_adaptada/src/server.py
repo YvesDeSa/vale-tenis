@@ -1,10 +1,10 @@
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
-from .schemas.schemas import Produto, ProdutoTamanho, Cliente
+from .schemas.schemas import Fornecedor, Produto, ProdutoTamanho, Cliente
 
 from src.infra.sqlalchemy.config.database import get_db, criar_bd
 from src.infra.sqlalchemy.repositorios.produto import RepositorioProduto
-from src.infra.sqlalchemy.repositorios.produto_tamanho import RepositorioProdutoTamanho
+from src.infra.sqlalchemy.repositorios.fornecedor import RepositorioFornecedor
 from src.infra.sqlalchemy.repositorios.cliente import RepositorioCliente
 
 
@@ -72,3 +72,27 @@ def remover_cliente(cliente_id:int, db:Session = Depends(get_db), ):
         return{f"Cliente {cliente_id} removido com sucesso!"}
     else:
         return{f"Não foi possível remover o cliente {cliente_id}"}
+
+
+@app.post("/fornecedor")
+def criar_fornecedor(fornecedor: Fornecedor, db:Session = Depends(get_db)):# Depends vem do FastAPI para injetar oque passamos
+    fornecedor = RepositorioFornecedor(db).criar(fornecedor)
+    return{"Fornecedor Cadastrado"}
+
+
+@app.get("/fornecedores")
+def listar_fornecedores(db:Session = Depends(get_db)):
+    fornecedores = RepositorioFornecedor(db).listar()
+    return fornecedores
+
+
+@app.get("/fornecedores/{fornecedor_id}")
+def obter_fornecedor(fornecedor_id: int, db:Session = Depends(get_db)):
+    fornecedor = RepositorioFornecedor(db).obter(fornecedor_id)
+    return fornecedor 
+
+
+@app.delete("/fornecedores/{fornecedor_id}")
+def deletar_fornecedor(fornecedor_id: int, db:Session = Depends(get_db)):
+    fornecedor = RepositorioFornecedor(db).remover(fornecedor_id)
+    return fornecedor 

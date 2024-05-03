@@ -1,6 +1,9 @@
 from sqlalchemy import Column, Integer, String, Date,  ForeignKey
 from sqlalchemy.orm import relationship
 from src.infra.sqlalchemy.config.database import Base
+from sqlalchemy.orm import Mapped
+from sqlalchemy.orm import mapped_column
+
 
 
 class Produto(Base):#Define uma classe chamada Produto que herda da classe Base, 
@@ -34,8 +37,6 @@ class ProdutoTamanho(Base):
     produto = relationship("Produto", back_populates="tamanhos")
 
 
-
-
 class Cliente(Base):
     __tablename__ = "cliente"
 
@@ -48,3 +49,15 @@ class Cliente(Base):
     celular = Column(String)
     email = Column(String)
     senha = Column(String)
+
+
+class Fornecedor(Base):
+    __tablename__ = "fornecedor"
+    id:Mapped[int] = mapped_column(Integer, primary_key=True, index=True )
+    nome = Column(String)
+    cnpj = Column(String)
+    endereco = Column(String)
+    celular = Column(String)
+    email = Column(String)
+    
+ 
