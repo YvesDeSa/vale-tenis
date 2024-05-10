@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Date,  ForeignKey
+from sqlalchemy import Column, Integer, String, Date, Double, ForeignKey
 from sqlalchemy.orm import relationship
 from src.infra.sqlalchemy.config.database import Base
 from sqlalchemy.orm import Mapped
@@ -32,6 +32,7 @@ class ProdutoTamanho(Base):
     produto_id = Column(Integer, ForeignKey("produto.id"))  # Chave estrangeira referenciando a tabela produto
     quantidade = Column(Integer)
     tamanho = Column(Integer)
+    preco = Column(Double)
 
     # Define o relacionamento com a tabela produto
     produto = relationship("Produto", back_populates="tamanhos")
