@@ -36,9 +36,10 @@ class Produto(BaseModel):
     tipo_genero: str
     genero: str
     tamanhos: List[ProdutoTamanho]
+    fornecedor_id:int
 
-    # class Config:
-    #     orm_mode = True
+    class Config:
+         orm_mode = True
 
 
 class Pedido(BaseModel):
@@ -57,3 +58,5 @@ class Fornecedor(BaseModel):
     celular : str
     email : str
     
+    class Config:
+        orm_mode=True

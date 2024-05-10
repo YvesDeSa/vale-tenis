@@ -18,7 +18,10 @@ class Produto(Base):#Define uma classe chamada Produto que herda da classe Base,
     tipo_genero = Column(String) #adulto / infantil
     genero = Column(String) # Masculino / feminino / unisex 
     detalhe = Column (String)
+    cor = Column(String)
+    fornecedor_id = Column(Integer, ForeignKey('fornecedor.id'))
      
+    fornecedor = relationship("Fornecedor", back_populates="produtos") 
     # Define o relacionamento com a tabela produto_tamanho
     tamanhos = relationship("ProdutoTamanho", back_populates="produto")
 
@@ -54,11 +57,12 @@ class Cliente(Base):
 
 class Fornecedor(Base):
     __tablename__ = "fornecedor"
-    id:Mapped[int] = mapped_column(Integer, primary_key=True, index=True )
+    id = Column(Integer, primary_key=True, index=True )
     nome = Column(String)
     cnpj = Column(String)
     endereco = Column(String)
     celular = Column(String)
     email = Column(String)
     
+    produtos = relationship("Produto", back_populates="fornecedor")
  

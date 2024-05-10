@@ -9,13 +9,21 @@ class RepositorioProduto():
         self.db = db
         
 
+    
+    def fornecedor_existe(self, fornecedor_id: int):
+         return self.db.query(models.Fornecedor).filter(models.Fornecedor.id == fornecedor_id).first() is not None
+
 
     def criar(self, produto: schemas.Produto):# Covertendo o Schema em um modelo
+        if not self.fornecedor_existe(produto.fornecedor_id):
+            raise ValueError('Fornecedor não existe')
+        
         db_produto = models.Produto(marca=produto.marca, 
                                     detalhe=produto.detalhe,
                                     modelo=produto.modelo,
                                     tipo_genero=produto.tipo_genero,
                                     genero=produto.genero,
+                                    fornecedor_id=produto.fornecedor_id
                                     )
 
         self.db.add(db_produto)
