@@ -3,11 +3,6 @@ from typing import Optional, List
 from datetime import date
 
 
-class Usuario(BaseModel):
-    id: Optional[str] = None
-    nome: str
-    telefone: str
-
 
 class ProdutoTamanho(BaseModel):
     id: Optional[int] = None

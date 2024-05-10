@@ -19,7 +19,7 @@ class Produto(Base):#Define uma classe chamada Produto que herda da classe Base,
     genero = Column(String) # Masculino / feminino / unisex 
     detalhe = Column (String)
     cor = Column(String)
-    fornecedor_id = Column(Integer, ForeignKey('fornecedor.id'))
+    fornecedor_id = Column(Integer, ForeignKey('fornecedor.id', name='fk_fornecedor'))
      
     fornecedor = relationship("Fornecedor", back_populates="produtos") 
     # Define o relacionamento com a tabela produto_tamanho
