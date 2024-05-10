@@ -32,7 +32,7 @@ class ProdutoTamanho(Base):
     __tablename__ = "produto_tamanho"
 
     id = Column(Integer, primary_key=True, index=True)
-    produto_id = Column(Integer, ForeignKey("produto.id"))  # Chave estrangeira referenciando a tabela produto
+    produto_id = Column(Integer, ForeignKey("produto.id", name='fk_produto'))  # Chave estrangeira referenciando a tabela produto
     quantidade = Column(Integer)
     tamanho = Column(Integer)
     preco = Column(Double)
