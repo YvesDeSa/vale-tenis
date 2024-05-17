@@ -74,11 +74,26 @@ def remover_cliente(cliente_id:int, db:Session = Depends(get_db), ):
         return{f"Não foi possível remover o cliente {cliente_id}"}
 
 
+@app.put("/cliente")
+def atualizar_cliente(cliente:Cliente, db:Session = Depends(get_db), ):
+    cliente = RepositorioCliente(db).editar(cliente)
+    return {"Cliente editado"}
+    
+
+
 @app.post("/fornecedor")
 def criar_fornecedor(fornecedor: Fornecedor, db:Session = Depends(get_db)):# Depends vem do FastAPI para injetar oque passamos
     fornecedor = RepositorioFornecedor(db).criar(fornecedor)
     return{"Fornecedor Cadastrado"}
 
+
+
+
+@app.put("/fornecedor")
+def atualizar_fornecedor(fornecedor:Fornecedor, db:Session = Depends(get_db), ):
+    fornecedor = RepositorioFornecedor(db).editar(fornecedor)
+    return {"Fornecedor editado"}
+    
 
 @app.get("/fornecedores")
 def listar_fornecedores(db:Session = Depends(get_db)):

@@ -1,3 +1,4 @@
+from sqlalchemy import update
 from sqlalchemy.orm import Session
 from src.schemas import schemas
 from src.infra.sqlalchemy.models import models
@@ -21,6 +22,18 @@ class RepositorioFornecedor():
         self.db.refresh(db_fornecedor)
         return db_fornecedor
 
+
+    def editar(self, fornecedor: schemas.Fornecedor):
+        update_stmt = update(models.Fornecedor).where(
+            models.Fornecedor.id == fornecedor.id).values(
+                                    nome = fornecedor.nome,
+                                    celular = fornecedor.celular,
+                                    email = fornecedor.email,
+                                    cnpj = fornecedor.cnpj,
+                                    endereco = fornecedor.endereco, 
+                                    )
+        self.db.execute(update_stmt)
+        self.db.commit()
 
     def listar(self):
         fornecedores = self.db.query(models.Fornecedor).all()

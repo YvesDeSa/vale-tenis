@@ -1,3 +1,5 @@
+from sqlalchemy import update
+
 from sqlalchemy.orm import Session
 from src.schemas import schemas
 from src.infra.sqlalchemy.models import models
@@ -24,6 +26,21 @@ class RepositorioCliente():
         return db_cliente
 
 
+    def editar(self, cliente: schemas.Cliente):
+        update_stmt = update(models.Cliente).where(
+            models.Cliente.id == cliente.id).values(
+                                    nome = cliente.nome,
+                                    sobrenome = cliente.sobrenome,
+                                    sexo = cliente.sexo,
+                                    data_nascimento = cliente.dataNascimento,
+                                    cpf = cliente.cpf,
+                                    celular = cliente.celular,
+                                    email = cliente.email,
+                                    senha = cliente.senha
+                                    )
+        self.db.execute(update_stmt)
+        self.db.commit()
+        
     def listar(self):
         clientes = self.db.query(models.Cliente).all()
         return  clientes

@@ -46,6 +46,10 @@ class RepositorioProduto():
         return db_produto
 
 
+    
+
+
+
     def listar(self):
         produtos = self.db.query(models.Produto).options(joinedload(models.Produto.tamanhos)).all()
         return produtos
