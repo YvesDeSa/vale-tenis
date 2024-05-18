@@ -1,3 +1,4 @@
+from sqlalchemy import update
 from sqlalchemy.orm import Session, joinedload
 from src.infra.sqlalchemy.repositorios.produto_tamanho import RepositorioProdutoTamanho
 from src.schemas import schemas
@@ -32,12 +33,13 @@ class RepositorioProduto():
 
         # Criar os registros de tamanhos associados ao produto
         for tamanho in produto.tamanhos:
-            db_produto_tamanho = models.ProdutoTamanho(
-                produto_id=db_produto.id,
-                quantidade=tamanho.quantidade,
-                tamanho=tamanho.tamanho
-            )
-            self.db.add(db_produto_tamanho)
+            self.criarProdutoTamanho(tamanho, db_produto.id)
+            # db_produto_tamanho = models.ProdutoTamanho(
+            #     produto_id=db_produto.id,
+            #     quantidade=tamanho.quantidade,
+            #     tamanho=tamanho.tamanho
+            # )
+            # self.db.add(db_produto_tamanho)
 
             # self.db.refresh(db_produto_tamanho)
 
@@ -46,7 +48,33 @@ class RepositorioProduto():
         return db_produto
 
 
-    
+    def update(self, produto: schemas.Produto):
+        if not self.fornecedor_existe(produto.fornecedor_id):
+            raise ValueError('Fornecedor não existe')
+        
+        update_produto = update(models.Produto).where(
+            models.Produto.id == produto.id).values(marca=produto.marca, 
+                                                    detalhe=produto.detalhe,
+                                                    modelo=produto.modelo,
+                                                    tipo_genero=produto.tipo_genero,
+                                                    genero=produto.genero,
+                                                    fornecedor_id=produto.fornecedor_id)
+
+        self.db.execute(update_produto)
+        self.db.commit()
+
+        for tamanho in produto.tamanhos:
+            if tamanho.id == 0:
+                print("Entrouu")
+                self.criarProdutoTamanho(tamanho, produto.id)
+            else:
+                update_tamanho = update(models.ProdutoTamanho).where(models.ProdutoTamanho.id == tamanho.id).values(
+                    produto_id=produto.id,
+                    quantidade=tamanho.quantidade,
+                    tamanho=tamanho.tamanho
+                )
+                self.db.execute(update_tamanho)
+                self.db.commit()
 
 
 
@@ -71,3 +99,14 @@ class RepositorioProduto():
             self.db.commit()
             return True
         return False
+
+
+    def criarProdutoTamanho(self, produtoTamanho: schemas.ProdutoTamanho, id_produto):
+        db_produto_tamanho = models.ProdutoTamanho(
+                produto_id=id_produto,
+                quantidade=produtoTamanho.quantidade,
+                tamanho=produtoTamanho.tamanho
+            )
+        self.db.add(db_produto_tamanho)
+        self.db.commit()
+        print("CRIOU")

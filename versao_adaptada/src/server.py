@@ -20,6 +20,11 @@ def criar_produto(produto: Produto, db:Session = Depends(get_db)):# Depends vem 
     return{"MSG":"Produto Criado"}
 
 
+@app.put("/produtos")
+def criar_produto(produto: Produto, db:Session = Depends(get_db)):# Depends vem do FastAPI para injetar oque passamos
+    RepositorioProduto(db).update(produto)
+    return{"MSG":"Produto Alterado"}
+
 # @app.post("/produto-tamanho")
 # def criar_produto_tamanho(produto: ProdutoTamanho, db:Session = Depends(get_db)):# Depends vem do FastAPI para injetar oque passamos
 #     produto_criado = RepositorioProdutoTamanho(db).criar(produto)
@@ -30,8 +35,6 @@ def criar_produto(produto: Produto, db:Session = Depends(get_db)):# Depends vem 
 def listar_produtos(db:Session = Depends(get_db)):
     produtos = RepositorioProduto(db).listar()
     return produtos
-
-
 
 @app.get("/produto/{produto_id}")
 def obter_produto(produto_id:int, db:Session = Depends(get_db), ):
@@ -45,7 +48,6 @@ def remover_produto(produto_id:int, db:Session = Depends(get_db), ):
         return{f"Produto {produto_id} removido com sucesso!"}
     else:
         return{f"Não foi possível remover o produto {produto_id}"}
-
 
 
 @app.post("/cliente")
@@ -73,27 +75,22 @@ def remover_cliente(cliente_id:int, db:Session = Depends(get_db), ):
     else:
         return{f"Não foi possível remover o cliente {cliente_id}"}
 
-
 @app.put("/cliente")
 def atualizar_cliente(cliente:Cliente, db:Session = Depends(get_db), ):
     cliente = RepositorioCliente(db).editar(cliente)
     return {"Cliente editado"}
     
-
-
 @app.post("/fornecedor")
 def criar_fornecedor(fornecedor: Fornecedor, db:Session = Depends(get_db)):# Depends vem do FastAPI para injetar oque passamos
     fornecedor = RepositorioFornecedor(db).criar(fornecedor)
     return{"Fornecedor Cadastrado"}
 
 
-
-
 @app.put("/fornecedor")
 def atualizar_fornecedor(fornecedor:Fornecedor, db:Session = Depends(get_db), ):
     fornecedor = RepositorioFornecedor(db).editar(fornecedor)
     return {"Fornecedor editado"}
-    
+
 
 @app.get("/fornecedores")
 def listar_fornecedores(db:Session = Depends(get_db)):
