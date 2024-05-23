@@ -34,14 +34,6 @@ class RepositorioProduto():
         # Criar os registros de tamanhos associados ao produto
         for tamanho in produto.tamanhos:
             self.criarProdutoTamanho(tamanho, db_produto.id)
-            # db_produto_tamanho = models.ProdutoTamanho(
-            #     produto_id=db_produto.id,
-            #     quantidade=tamanho.quantidade,
-            #     tamanho=tamanho.tamanho
-            # )
-            # self.db.add(db_produto_tamanho)
-
-            # self.db.refresh(db_produto_tamanho)
 
         self.db.commit()
 
@@ -65,7 +57,6 @@ class RepositorioProduto():
 
         for tamanho in produto.tamanhos:
             if tamanho.id == 0:
-                print("Entrouu")
                 self.criarProdutoTamanho(tamanho, produto.id)
             else:
                 update_tamanho = update(models.ProdutoTamanho).where(models.ProdutoTamanho.id == tamanho.id).values(
@@ -101,12 +92,11 @@ class RepositorioProduto():
         return False
 
 
-    def criarProdutoTamanho(self, produtoTamanho: schemas.ProdutoTamanho, id_produto):
+    def criarProdutoTamanho(self, produto_tamanho: schemas.ProdutoTamanho, id_produto):
         db_produto_tamanho = models.ProdutoTamanho(
                 produto_id=id_produto,
-                quantidade=produtoTamanho.quantidade,
-                tamanho=produtoTamanho.tamanho
+                quantidade=produto_tamanho.quantidade,
+                tamanho=produto_tamanho.tamanho
             )
         self.db.add(db_produto_tamanho)
         self.db.commit()
-        print("CRIOU")

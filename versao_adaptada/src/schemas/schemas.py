@@ -9,18 +9,19 @@ class ProdutoTamanho(BaseModel):
     produto_id: int
     quantidade: int
     tamanho: int
+    preco: float
 
     
 class Cliente(BaseModel):
-  id: Optional[int] = 0
-  nome: str
-  sobrenome: str
-  sexo: str
-  dataNascimento: date
-  cpf: str
-  celular: str
-  email: str
-  senha: str
+    id: Optional[int] = 0
+    nome: str
+    sobrenome: str
+    sexo: str
+    dataNascimento: date
+    cpf: str
+    celular: str
+    email: str
+    senha: str
 
 
 class Produto(BaseModel):
@@ -36,22 +37,35 @@ class Produto(BaseModel):
     class Config:
          orm_mode = True
 
-
-class Pedido(BaseModel):
-    id: Optional[str] = None
-    quantidade: int
-    entrega: bool = False
-    endereco: str
-    observacoes: Optional[str] = "Sem Observações"
-
-
 class Fornecedor(BaseModel):
-    id : Optional[int] = None
-    nome : str
-    cnpj : str
-    endereco : str
-    celular : str
-    email : str
+    id: Optional[int] = None
+    nome: str
+    cnpj: str
+    endereco: str
+    celular: str
+    email: str
     
     class Config:
         orm_mode=True
+
+
+class ItemPedido(BaseModel):
+    id: Optional[str] = None
+    preco_item: float
+    quantidade: int
+    pedido_id: int
+    produto_id: int
+
+    class Config:
+        orm_mode=True
+        
+class Pedido(BaseModel):
+    id: Optional[str] = None
+    cliente_id: int
+    data: date
+    preco_total: float
+    itens_pedido: List[ItemPedido]
+    
+    class Config:
+        orm_mode=True
+
