@@ -4,7 +4,7 @@ from src.schemas import schemas
 from src.infra.sqlalchemy.models import models
 
 
-class Pedido():
+class RepositorioPedido():
 
     def __init__(self, db: Session):
         self.db = db
@@ -83,4 +83,3 @@ class Pedido():
             )
         self.db.add(db_item)
         self.db.commit()
-        print("CRIOU")

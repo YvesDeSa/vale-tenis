@@ -77,10 +77,10 @@ class Pedido(Base):
     preco_total = Column(Double)
 
     cliente = relationship("Cliente", back_populates="pedidos") 
-    itens_pedido = relationship("ProdutoTamanho", back_populates="pedido")
+    itens_pedido = relationship("ItemPedido", back_populates="pedido")
 
 class ItemPedido(Base):
-    __tablename__ = "item_tamanho"
+    __tablename__ = "item_pedido"
     id = Column(Integer, primary_key=True, index=True)
     preco_item = Column(Double)
     quantidade = Column(Integer)

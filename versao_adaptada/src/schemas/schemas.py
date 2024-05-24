@@ -50,7 +50,7 @@ class Fornecedor(BaseModel):
 
 
 class ItemPedido(BaseModel):
-    id: Optional[str] = None
+    id: Optional[int] = None
     preco_item: float
     quantidade: int
     pedido_id: int
@@ -60,7 +60,7 @@ class ItemPedido(BaseModel):
         orm_mode=True
         
 class Pedido(BaseModel):
-    id: Optional[str] = None
+    id: Optional[int] = None
     cliente_id: int
     data: date
     preco_total: float
